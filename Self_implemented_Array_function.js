@@ -73,26 +73,26 @@ var fruits2 = [1, 2, [3, 4, [5,[7, 6]]]];;
 console.log(fruits2.flat(2));
 //Self implementation of flat() method
 function selfflat(arr,val)
-{	if(val==undefined)
-		val=1;
-	while(val > 0)
+{   if(val==undefined)
+        val=1;
+    while(val > 0)
     {
-    	var stack=[...arr]
-        res=[]
+        var stack=[...arr];
+        var res=[];
         while(stack.length)
         {
-        	var elem= stack.shift();
+            var elem= stack.shift();
             if(Array.isArray(elem))
-            	res.push(...elem);
+                res.push(...elem);
             else
-            	res.push(elem);
+                res.push(elem);
         }
         val--;
         arr=res;
     }
     return arr;
 }
-console.log(selfflat(fruits2,2);
+console.log(selfflat(fruits2,2));
 
 
 //flatMap() method
