@@ -2,7 +2,7 @@
 
 // pipe() function
 const pipe = (...params) => value =>
-  params.reduce((accum, val) => val(accum) , value));
+  params.reduce((accum, val) => val(accum) , value);
 
 const pipeResult = pipe(
   e => e * 10,
@@ -10,7 +10,7 @@ const pipeResult = pipe(
   e => e + 30,
   )(5);
 
-console.log(piperesult); //100
+console.log(pipeResult); //100
 
 //compose() function
 const compose = (...params) => value =>
@@ -22,14 +22,14 @@ const composeResult = compose(
   e => e + 30,
   )(5);
 
-console.log(composeresult); //550
+console.log(composeResult); //550
 
 //converge() function
 
 const converge = (rootFn, arrFn) => value =>
    rootFn(...arrFn.map(e => e(...value)));
 
-const convergeResult = converge2(console.log , [Math.max, Math.min])([11,3,-4]); //11 -4
+const convergeResult = converge(console.log , [Math.max, Math.min])([11,3,-4]); //11 -4
 
 //cond() function
 const cond = (arrCond) => value =>{
@@ -56,10 +56,10 @@ const dissoc = (prop , obj) => {
     return clone;
 };
 
-console.log(assoc('c', 3, {a: 1, b: 2})); //Object {c : 3, a: 1, b: 2 }
+console.log(dissoc('c', {a: 1, b: 2, c: 3})); //Object {a: 1, b: 2 }
 
 // flatten() function
-const flatten => (inArr) =>
+const flatten = (inArr) =>
   inArr.flat(Infinity);
 
 console.log(flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])); // Array(12) [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -115,6 +115,3 @@ const splitEvery = (splitSize , params) =>
 
 console.log(splitEvery(3, [1, 2, 3, 4, 5, 6, 7])); //[[1, 2, 3], [4, 5, 6], [7]]
 console.log(splitEvery(3, 'foobarbaz')); //['foo', 'bar', 'baz']
-
-
-
