@@ -32,21 +32,33 @@ const converge = (rootFn, arrFn) => value =>
 const convergeResult = converge(console.log , [Math.max, Math.min])([11,3,-4]); //11 -4
 
 //cond() function
-const cond = (arrCond) => value =>{
-	let rs = null;
-  arrCond.forEach( element =>{
-    if( value == element[0] )
-      rs=element[1];});
-		if (rs === null)
-    	rs = arrCond[arrCond.length -1][1];
-		return rs;
-  } ;
+const cond = (arr) => (data) =>
+    arr.reduce((accum, val) =>{
+        if(accum !== undefined){
+            return accum;
+        }
+        const [pret,trans] = val;
+        if(pret(data)){
+            return trans(data);
+        }
+        return accum;
+    }, undefined);
+
+const equals = (data) => (info) => data === info;
+const always = data => () => data;
+const T = () => true;
+const fn = cond([
+    [equals(0), always("water freezes at 0°C")],
+    [equals(100), always('water boils at 100°C')],
+    [T, (temp) => 'nothing special happens at ' + temp + '°C']
+]);
+console.log(fn(0));  //=> 'water freezes at 0°C'
+console.log(fn(100));  //=> 'water boils at 100°C'
+console.log(fn(50));  //=> 'nothing special happens at 50°C'
 
 // assoc() function
 const assoc= (prop, value, obj) =>
   Object.assign({[prop] : value}, obj);
-
-
 console.log(assoc('c', 3, {a: 1, b: 2})); //Object {c : 3, a: 1, b: 2 }
 
 // dissoc() function
@@ -58,6 +70,33 @@ const dissoc = (prop , obj) => {
 
 console.log(dissoc('c', {a: 1, b: 2, c: 3})); //Object {a: 1, b: 2 }
 
+//ifElse() function
+const ifElse = (pret, succ, fails) => data => pret(data) ? succ(data) : fails(data);
+const cond = (arr) => (data) =>
+    arr.reduce((accum, val) =>{
+        const [pret,trans] = val;
+        return ifElse(
+            (val) => val !== undefined,
+            (val) => val,
+            ifElse(
+                _ => pret(data),
+                _ => trans(data),
+                (val) => val
+                )
+            )(accum); 
+    }, undefined);
+
+const equals = (data) => (info) => data === info;
+const always = data => () => data;
+const T = () => true;
+const fn = cond([
+    [equals(0), always("water freezes at 0°C")],
+    [equals(100), always('water boils at 100°C')],
+    [T, (temp) => 'nothing special happens at ' + temp + '°C']
+]);
+console.log(fn(0));  //=> 'water freezes at 0°C'
+console.log(fn(100));  //=> 'water boils at 100°C'
+console.log(fn(50));  //=> 'nothing special happens at 50°C'
 // flatten() function
 const flatten = (inArr) =>
   inArr.flat(Infinity);
