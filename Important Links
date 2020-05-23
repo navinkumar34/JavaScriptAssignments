@@ -28,6 +28,9 @@ Learn JavaScript by Building 7 Games : https://www.youtube.com/watch?v=lhNdUVh3q
 Arrow Functions:
 5 Best Practices to Write Quality Arrow Functions : https://dmitripavlutin.com/javascript-arrow-functions-best-practices/
 
+closure:
+https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
+
 Ramda JS:
 https://ramdajs.com/
 Ramda JS – An Introduction : https://www.youtube.com/watch?v=AINnOyUVEyI
@@ -43,4 +46,16 @@ https://medium.com/better-programming/understanding-promises-in-javascript-13d99
 
 Fetch:
 https://developers.google.com/web/updates/2015/03/introduction-to-fetch
+
+Important JavaScript topics:
+-> Hoisting
+-> Closure : function inside a function
+-> Copy by reference : when we copy an array or object, those are copied by reference
+-> Copy by value : All primitive data types are copied by value, as changes in one are not refelected on to other
+-> Callback and it's scope
+-> Callback hell
+-> Promise chaining
+-> Promise.all -> it we want to use result of all promises in one go the Promise.all is used.If all promises resolve then only it will go to then
+    otherwise it will go to catch.
+-> fetch
 
